@@ -1,0 +1,18 @@
+<h1>Create a new product</h1>
+<%= form_tag('/products', method:'post') do %>
+<%=  label_tag(:name)%>
+<%=  text_field_tag(:name)%>
+<br>
+<%=  label_tag(:price)%>
+<%=  text_field_tag(:price)%>
+<br>
+<%=  label_tag(:image)%>
+<%=  text_field_tag(:image)%>
+<br>
+<%=  label_tag(:description)%>
+<%=  text_field_tag(:description)%>
+<br>
+<div>
+<%=  submit_tag("submit!!!") %>
+</div>
+<% end %>
