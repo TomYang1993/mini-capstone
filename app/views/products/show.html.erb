@@ -6,3 +6,9 @@
 <div><img src=<%= @product.image %> alt="missing image"></div>
 
 <h2><a href="/products">Back to Home</a></h2>
+
+<p><%= link_to "Delete the product", "/products/#{@product.id}", method: 'delete' %>
+</p>
+
+<p><%= link_to "Update the product", "/products/#{@product.id}/edit" %>
+</p>

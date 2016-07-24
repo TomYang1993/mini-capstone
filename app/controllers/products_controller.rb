@@ -15,13 +15,13 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(
-    name: params[:name],
-    price: params[:price],
-    image: params[:image],
-    description: params[:description]
+      name: params[:name],
+      price: params[:price],
+      image: params[:image],
+      description: params[:description]
     )
     @product.save
-    render "create.html.erb"
+    redirect_to "/products/#{@product.id}"
   end
 
   def edit
@@ -32,12 +32,20 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by(id: params[:id])
     @product.update(
-    name: params[:name],
-    price: params[:price],
-    image: params[:image],
-    description: params[:description]
+      name: params[:name],
+      price: params[:price],
+      image: params[:image],
+      description: params[:description]
     )
-    render "update.html.erb"
+    flash[:success] = "#{@product.id} was successfully updated !!"
+    redirect_to "/products/#{@product.id}"
+  end
+
+  def destroy
+    product = Product.find_by(id: params[:id])
+    product.destroy
+    flash[:success] = "#{product.id} was successfully deleted !!"
+    redirect_to "/products"
   end
 
   def new_form
@@ -46,10 +54,10 @@ class ProductsController < ApplicationController
 
   def add_to_database
     Product.create(
-    name: params[:name],
-    price: params[:price],
-    image: params[:image],
-    description: params[:description]
+      name: params[:name],
+      price: params[:price],
+      image: params[:image],
+      description: params[:description]
     )
     render "new_form.html.erb"
   end
