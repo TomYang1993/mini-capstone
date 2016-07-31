@@ -14,4 +14,12 @@ class Product < ApplicationRecord
   def total
     (price.to_f + tax).round(2)
   end
+
+  def supplier
+    Supplier.find_by(id: supplier_id)
+  end
+
+  def images
+    Image.where(product_id: id)
+  end
 end

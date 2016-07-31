@@ -1,11 +1,24 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.all
-    render "index.html.erb"
+    if params[:sort_a]
+      @products = Product.order(params[:sort_a])
+    end
+    if params[:sort_d]
+      @products = Product.order(params[:sort_d] => "desc")
+    end
+    if params[:sort_discount]
+      @products = Product.where("#{params[:sort_discount]} < ?", 20)
+    end
+    #render "index.html.erb"
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
+    if params[:id] == "random"
+      @product = Product.all.sample
+    else
+      @product = Product.find_by(id: params[:id])
+    end
     render "show.html.erb"
   end
 
@@ -46,6 +59,11 @@ class ProductsController < ApplicationController
     product.destroy
     flash[:success] = "#{product.id} was successfully deleted !!"
     redirect_to "/products"
+  end
+
+  def search
+    @products = Product.where("name LIKE ?", "%#{params[:search]}%")
+    render "index.html.erb"
   end
 
   def new_form

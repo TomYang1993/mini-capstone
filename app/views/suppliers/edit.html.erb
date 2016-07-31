@@ -1,0 +1,18 @@
+<h1>Edit a supplier</h1>
+<%= form_tag('/suppliers/:id', method:'post') do %>
+<%=  label_tag(:name)%>
+<%=  text_field_tag(:name,params[:name])%>
+<br>
+<%=  label_tag(:email)%>
+<%=  text_field_tag(:email,params[:email])%>
+<br>
+<%=  label_tag(:phone)%>
+<%=  text_field_tag(:phone, params[:phone])%>
+<br>
+<%=  label_tag(:supplier_id)%>
+<%=  text_field_tag(:supplier_id,params[:supplier_id])%>
+<br>
+<div>
+<%=  submit_tag("update!!!") %>
+</div>
+<% end %>

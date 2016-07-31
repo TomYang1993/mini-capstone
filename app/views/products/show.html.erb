@@ -1,6 +1,7 @@
 <h1>The single product</h1>
 
 <h2>Product name: <%= @product.name  %></h2>
+<h4>Product supplier: <%= @product.supplier.name %></h4>
 <div>
 <h5>price: <%= @product.price  %></h5>
 <h5>tax: <%= @product.tax  %></h5>
@@ -8,7 +9,7 @@
 </div>
 <h5><%= @product.sale_message  %></h5>
 <h4><%= @product.description %></h4>
-<div><img src=<%= @product.image %> alt="missing image"></div>
+<div><img src=<%= @product.images %> alt="missing image"></div>
 
 <h2><a href="/products">Back to Home</a></h2>
 
