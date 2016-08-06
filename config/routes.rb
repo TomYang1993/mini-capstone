@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   patch '/products/:id' => 'products#update'
   delete '/products/:id' => 'products#destroy'
   get '/search' => 'products#search'
-  get '/forms'    => 'products#new_form'
-  post '/forms'   => 'products#add_to_database'
 
   get '/suppliers/new' => 'suppliers#new'
   post '/suppliers' => 'suppliers#create'
@@ -20,4 +18,10 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
+  get '/orders/:id' => 'orders#show'
+  post '/orders' => 'orders#create'
+
+  post '/carted_products' => 'carted_products#create'
+
+  get '/checkout' => 'carted_products#index'
 end

@@ -1,0 +1,10 @@
+<h1>Order Confirmation</h1>
+
+
+
+
+<% @carted_products.each do |carted_product| %>
+<div>  Product:  <%= carted_product.product.name %>             </div>
+<div>  Quantity:  <%= carted_product.quantity  %>             </div>
+<br>
+<% end   %>

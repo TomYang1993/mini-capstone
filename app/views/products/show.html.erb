@@ -1,7 +1,11 @@
-<h1>The single product</h1>
+
+<h2>The categories are:</h2>
+<% @product.categories.each do |category| %>
+<li><%= category.name %><br></li>
+<% end %>
 
 <h2>Product name: <%= @product.name  %></h2>
-<h4>Product supplier: <%= @product.supplier.name %></h4>
+<h4>Product supplier: </h4>
 <div>
 <h5>price: <%= @product.price  %></h5>
 <h5>tax: <%= @product.tax  %></h5>
@@ -18,3 +22,21 @@
 
 <p><%= link_to "Update the product", "/products/#{@product.id}/edit" %>
 </p>
+
+<h2> Your Order </h2>
+
+
+<%= form_tag("/carted_products",method:"post") do%>
+<div>
+<%= label_tag(:quantity) %>
+<%= text_field_tag(:quantity) %>
+</div>
+<div>
+<%= label_tag(:product_id) %>
+<%= text_field_tag(:product_id, @product.id) %>
+</div>
+
+<div>
+<button type="submit" class="btn btn-primary" >Add to cart!</button>
+</div>
+<% end %>

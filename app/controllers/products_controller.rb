@@ -10,6 +10,10 @@ class ProductsController < ApplicationController
     if params[:sort_discount]
       @products = Product.where("#{params[:sort_discount]} < ?", 20)
     end
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
+    end
     #render "index.html.erb"
   end
 
@@ -30,7 +34,6 @@ class ProductsController < ApplicationController
     @product = Product.new(
       name: params[:name],
       price: params[:price],
-      image: params[:image],
       description: params[:description]
     )
     @product.save
@@ -64,19 +67,5 @@ class ProductsController < ApplicationController
   def search
     @products = Product.where("name LIKE ?", "%#{params[:search]}%")
     render "index.html.erb"
-  end
-
-  def new_form
-    render "new_form.html.erb"
-  end
-
-  def add_to_database
-    Product.create(
-      name: params[:name],
-      price: params[:price],
-      image: params[:image],
-      description: params[:description]
-    )
-    render "new_form.html.erb"
   end
 end

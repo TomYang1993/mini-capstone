@@ -13,6 +13,4 @@ class SuppliersController < ApplicationController
     @supplier.save
     redirect_to "/suppliers/new"
   end
-
-  def 
 end

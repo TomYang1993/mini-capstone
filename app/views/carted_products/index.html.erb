@@ -1,0 +1,15 @@
+<h1>Check Out !!</h1>
+
+<% @carted_products.each do |carted_product| %>
+<div>
+<%= carted_product.status %>
+Product: <%= carted_product.product.name %>
+Quantity: <%= carted_product.quantity %>
+</div>
+<% end %>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<%= form_tag("/orders", method:"post") do %>
+<button type="submit" class="btn btn-primary" >Check out!</button>
+<% end %>
