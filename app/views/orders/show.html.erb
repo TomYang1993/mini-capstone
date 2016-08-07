@@ -3,8 +3,16 @@
 
 
 
-<% @carted_products.each do |carted_product| %>
-<div>  Product:  <%= carted_product.product.name %>             </div>
-<div>  Quantity:  <%= carted_product.quantity  %>             </div>
+<% @order.each do |order| %>
+ <div> The Order <%= order.id %>: </div>
+  <li>Subtotal is : <%= order.subtotal %> </li>
+  <li>Tax is : <%= order.tax %> </li>
+  <li>Total is : <%= order.total %></li>
+  <br>
+  <% order.carted_products.each do |carted_product|%>
+<ul><li>  Product:  <%= carted_product.product.name %>            <br>
+  Quantity:  <%= carted_product.quantity  %>         </li></ul>
+
 <br>
+  <% end %>
 <% end   %>

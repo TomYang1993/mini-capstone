@@ -5,6 +5,12 @@
 <%= carted_product.status %>
 Product: <%= carted_product.product.name %>
 Quantity: <%= carted_product.quantity %>
+
+||>>||  <%= form_tag("/carted_products", method:'patch') do  %>
+<%= hidden_field_tag(:carted_product_id,carted_product.id) %>
+<%= submit_tag("delete!") %>
+<% end %>
+
 </div>
 <% end %>
 

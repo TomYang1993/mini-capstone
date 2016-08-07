@@ -27,6 +27,6 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @carted_products = CartedProduct.where(user_id: current_user.id, status: "purchased")  
+    @order = Order.where(user_id: current_user.id)
   end
 end
