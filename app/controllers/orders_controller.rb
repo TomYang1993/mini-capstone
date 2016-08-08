@@ -10,10 +10,11 @@ class OrdersController < ApplicationController
       @order.tax = 0.09 * @order.subtotal
       @order.total = @order.tax + @order.subtotal
       if @order.save
-        carted_products.each do |carted_product|
-          carted_product.update(order_id: @order.id)
-          carted_product.update(status: "purchased")
-        end
+        # carted_products.each do |carted_product|
+        #   carted_product.update(order_id: @order.id)
+        #   carted_product.update(status: "purchased")
+        # end   doing multiple requests here, takes a lot of time
+        carted_products.update_all(order_id: @order.id, status: "purchased")
         flash[:success] = "Your order is ready!"
         redirect_to "/orders/#{@order.id}"
       else

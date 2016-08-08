@@ -8,7 +8,7 @@ Quantity: <%= carted_product.quantity %>
 
 ||>>||  <%= form_tag("/carted_products", method:'patch') do  %>
 <%= hidden_field_tag(:carted_product_id,carted_product.id) %>
-<%= submit_tag("delete!") %>
+<button type="submit" class="btn btn-primary" >Delete!</button>
 <% end %>
 
 </div>
