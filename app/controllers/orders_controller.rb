@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
         # end   doing multiple requests here, takes a lot of time
         carted_products.update_all(order_id: @order.id, status: "purchased")
         flash[:success] = "Your order is ready!"
+        session[:cart_count] = nil
         redirect_to "/orders/#{@order.id}"
       else
         flash[:danger] = "Danger!!!!"
@@ -28,6 +29,8 @@ class OrdersController < ApplicationController
   end
 
   def show
+
     @order = Order.where(user_id: current_user.id)
+
   end
 end

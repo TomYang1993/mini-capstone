@@ -17,26 +17,29 @@
 
 <h2><a href="/products">Back to Home</a></h2>
 
-<p><%= link_to "Delete the product", "/products/#{@product.id}", method: 'delete' %>
-</p>
+  <%   if current_user && current_user.admin %>
+    <p><%= link_to "Delete the product", "/products/#{@product.id}", method: 'delete' %>
+    </p>
 
-<p><%= link_to "Update the product", "/products/#{@product.id}/edit" %>
-</p>
+    <p><%= link_to "Update the product", "/products/#{@product.id}/edit" %>
+    </p>
+  <% end %>
+<% if current_user  %>
+    <h2> Your Order </h2>
 
-<h2> Your Order </h2>
 
+    <%= form_tag("/carted_products",method:"post") do%>
+    <div>
+    <%= label_tag(:quantity) %>
+    <%= text_field_tag(:quantity) %>
+    </div>
+    <div>
+    <%= label_tag(:product_id) %>
+    <%= text_field_tag(:product_id, @product.id) %>
+    </div>
 
-<%= form_tag("/carted_products",method:"post") do%>
-<div>
-<%= label_tag(:quantity) %>
-<%= text_field_tag(:quantity) %>
-</div>
-<div>
-<%= label_tag(:product_id) %>
-<%= text_field_tag(:product_id, @product.id) %>
-</div>
-
-<div>
-<button type="submit" class="btn btn-primary" >Add to cart!</button>
-</div>
+    <div>
+    <button type="submit" class="btn btn-primary" >Add to cart!</button>
+    </div>
+    <% end %>
 <% end %>

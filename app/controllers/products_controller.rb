@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :authorize_admin!, except: [:index, :show, :search]
+
   def index
     @products = Product.all
     if params[:sort_a]
@@ -14,7 +16,7 @@ class ProductsController < ApplicationController
       category = Category.find_by(name: params[:category])
       @products = category.products
     end
-    #render "index.html.erb"
+    render "index.html.erb"
   end
 
   def show
@@ -27,6 +29,7 @@ class ProductsController < ApplicationController
   end
 
   def new
+    @product = Product.new
     render "new.html.erb"
   end
 
@@ -36,13 +39,17 @@ class ProductsController < ApplicationController
       price: params[:price],
       description: params[:description]
     )
-    @product.save
-    redirect_to "/products/#{@product.id}"
+    if @product.save
+      flash[:success] = "Product is created!"
+      redirect_to "/products/#{@product.id}"
+    else
+      flash[:danger] = @product.errors.full_messages
+      render "new.html.erb"
+    end
   end
 
   def edit
     @product = Product.find_by(id: params[:id])
-    render 'edit.html.erb'
   end
 
   def update
@@ -50,11 +57,15 @@ class ProductsController < ApplicationController
     @product.update(
       name: params[:name],
       price: params[:price],
-      image: params[:image],
       description: params[:description]
     )
-    flash[:success] = "#{@product.id} was successfully updated !!"
-    redirect_to "/products/#{@product.id}"
+    if @product.valid?
+      flash[:success] = "#{@product.id} was successfully updated !!"
+      redirect_to "/products/#{@product.id}"
+    else
+      flash[:danger] = @product.errors.full_messages
+      render "edit"
+    end
   end
 
   def destroy
@@ -65,7 +76,7 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.where("name LIKE ?", "%#{params[:search]}%")
+    @products = Product.where("LOWER(name) LIKE ?", "%#{params[:search].downcase}%")
     render "index.html.erb"
   end
 end

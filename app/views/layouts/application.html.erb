@@ -25,7 +25,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/products/new">Add a new product<span class="sr-only">(current)</span></a></li>
+          <li class="active"><a href="#">Link<span class="sr-only">(current)</span></a></li>
           <li><a href="/products/?sort_discount=price">Discount items</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Advanced search <span class="caret"></span></a>
@@ -39,7 +39,9 @@
               <li role="separator" class="divider"></li>
               <li><a href="#">Separated link</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+              <% if current_user && current_user.admin %>
+                <li><a href="/products/new">Add a new product</a></li>
+              <% end %>
             </ul>
           </li>
         </ul>
@@ -64,7 +66,7 @@
               <li role="separator" class="divider"></li>
               <% if current_user  %>
               <li><%= link_to "Log out", "/logout", method: 'delete' %></li>
-              <li><%= link_to "check out", "/checkout", method: 'get' %></li>
+              <li><%= link_to "check out  (#{@cart_count})" , "/checkout", method: 'get' %> </li>
               <% end  %>
             </ul>
           </li>
@@ -76,7 +78,15 @@
     <% flash.each do |name, message| %>
        <div class="alert alert-<%= name %> alert-dismissible" role="alert">
          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         <% if message.is_a?(Array) %>
+          <ul>
+           <% message.each do |msg| %>
+            <li>  <%= msg %>  </li>
+           <% end %>
+         </ul>
+         <% else %>
          <p> <%= message %> </p>
+         <% end %>
        </div>
     <% end %>
 
